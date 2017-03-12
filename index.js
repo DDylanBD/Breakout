@@ -31,6 +31,7 @@ var mainState = {
 		this.paddle = game.add.sprite(200, 400, 'paddle');
 		 //Pour que le paddle ne bouge pas quand la balle le frappe.
 		 this.paddle.body.immovable = true;
+		 this.paddle.body.collideWorldBounds = true;
 
 
 		 this.bricks = game.add.group();
@@ -71,27 +72,28 @@ var mainState = {
 			if(this.ball.y > this.paddle.y)
 				game.state.start('main');
 		},
-		ballLost: function () {
+
+		gameOver: function () {
+
+			ball.body.velocity.setTo(0, 0);
+
+		},
+
+		ballLost: function (lives,livesText) {
 			lives--;
 			livesText.text = 'lives:' + lives;
 
 			// if(lives === 0) {
 			// 	gameOver();
 			// } else {
-
+			// 	return 'de';
 			// }
-		},
-
-		gameOver: function () {
-
-			ball.body.velocity.setTo(0, 0);
 		},
 
 		hit: function(ball, brick) {
 			brick.kill();
 
 			score += 3;
-
 			scoreText.text = 'score: ' + score;
 		},
 	};
